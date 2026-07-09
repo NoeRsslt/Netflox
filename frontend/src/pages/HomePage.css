@@ -1,0 +1,32 @@
+.home-page {
+  min-height: 100vh;
+  background-color: var(--color-bg);
+}
+
+.home-page__content {
+  padding: 24px 40px 60px;
+}
+
+.home-page__message {
+  color: var(--color-text-muted);
+  text-align: center;
+  margin-top: 60px;
+  font-size: 16px;
+}
+
+.home-page__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+}
+
+@media (max-width: 600px) {
+  .home-page__content {
+    padding: 16px;
+  }
+
+  .home-page__grid {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 12px;
+  }
+}

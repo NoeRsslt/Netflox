@@ -1,0 +1,30 @@
+.movie-card {
+  cursor: pointer;
+  border-radius: 6px;
+  overflow: hidden;
+  background-color: var(--color-bg-alt);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.movie-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 20px rgba(139, 92, 246, 0.35);
+}
+
+.movie-card__poster {
+  width: 100%;
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  display: block;
+  background-color: #1a1a1a;
+}
+
+.movie-card__title {
+  margin: 0;
+  padding: 8px 10px;
+  font-size: 13px;
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
