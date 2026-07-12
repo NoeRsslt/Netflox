@@ -7,3 +7,9 @@ export interface Movie {
   poster: string; // chemin relatif ou URL de l'affiche
   filename: string;
 }
+
+export interface SubtitleTrack {
+  lang: string;
+  label: string;
+  source: "external" | "embedded";
+}

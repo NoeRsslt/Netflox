@@ -48,7 +48,12 @@ export default function MoviePage() {
             {movie.runtime && <span>{movie.runtime} min</span>}
           </div>
           <p className="movie-page__overview">{movie.overview}</p>
-          <button className="movie-page__watch">▶ Regarder</button>
+          <button
+            className="movie-page__watch"
+            onClick={() => navigate(`/film/${movie.id}/regarder`)}
+          >
+            ▶ Regarder
+          </button>
         </div>
       </div>
     </div>

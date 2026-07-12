@@ -18,7 +18,69 @@ export async function searchMovie(title, year) {
   });
 
   const results = response.data.results;
-  return results && results.length > 0 ? results[0] : null;
+
+  if (!results || results.length === 0) {
+    return null;
+  }
+
+  // Normalise une chaîne pour la comparaison
+  const normalize = (str) =>
+    (str || "")
+      .toLowerCase()
+      .replace(/[:\-–]/g, " ")
+      .replace(/[^\w\s]/g, "")
+      .replace(/\s+/g, " ")
+      .trim();
+
+  const wanted = normalize(title);
+  const wantedPart = wanted.match(/\bpart\s+(\d+)\b/i)?.[1];
+
+  // Score de similarité simple
+  function score(movie) {
+    const titles = [
+      normalize(movie.title),
+      normalize(movie.original_title),
+    ];
+    if (wantedPart) {
+    const hasMatchingPart = titles.some((t) =>
+      t.includes(`part ${wantedPart}`)
+    );
+
+    if (!hasMatchingPart) {
+      return -1000;
+    }
+    }
+
+    let best = 0;
+
+    for (const t of titles) {
+      if (t === wanted) return 1000;
+
+      let s = 0;
+
+      if (t.includes(wanted)) s += 100;
+      if (wanted.includes(t)) s += 80;
+
+      const wantedWords = wanted.split(" ");
+      const titleWords = t.split(" ");
+
+      for (const word of wantedWords) {
+        if (titleWords.includes(word)) {
+          s += 10;
+        }
+      }
+
+      if (s > best) {
+        best = s;
+      }
+    }
+
+    return best;
+  }
+
+  results.sort((a, b) => score(b) - score(a));
+
+  return results[0];
 }
 
 export async function getMovieDetails(tmdbId) {
