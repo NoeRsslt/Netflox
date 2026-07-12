@@ -1,0 +1,5 @@
+cat > ~/Docker/netflox/frontend/.dockerignore << 'EOF'
+node_modules
+dist
+.env
+EOF
